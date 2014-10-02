@@ -2,8 +2,8 @@ require 'player'
 require 'game'
 player = Player.new
 
-describe 'Player class' do
+#describe 'Player class' do
 
 
-end
+#end
 

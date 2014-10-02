@@ -1,11 +1,10 @@
-class Player
+
 
 require 'game'
 require 'board'
+class Player
 
-  def current_player(n)
-    @current_player = n
-  end
+
 
   def get_names
     puts "Who would like to be X? (name)"
@@ -28,26 +27,19 @@ require 'board'
       puts "#{xplayer}, you go first" 
       current_player('x')
     else
+
       puts "#{yplayer}, you go first"
       current_player('y')
     end
   end
 
   def switch_player
-    if @current_player = 'x'
-      current_player('y')
+    if @current_player == 'X'
+      @current_player == 'O'
     else
-      current_player('x')
+      @current_player == 'X'
     end
   end
-
-   
-  
-
-
- #decide which one is true, take that and then  
-  #if column true find the row that is all the same and take the variable from the array
-  #end 
 
 end
 
