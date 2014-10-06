@@ -1,8 +1,17 @@
 
+require_relative 'player'
+require_relative 'board'
 
-require 'board'
-require 'player'
+
+
 class Game 
+
+  def initialize
+    @player = Player.new
+    @board = Board.new
+  end
+
+  
 
   def current_player # ???
     @current_player = current_player
@@ -54,7 +63,11 @@ class Game
   end  
 
   def check_for_tie(board)
-  board.all? { |place| place.class == place[0].class }
+    if check_for_win(board) == false and board.all? { |place| place.class == String }
+      true
+    else
+      false
+    end
   end
  
   def decide_winner(board)
@@ -74,21 +87,21 @@ class Game
   end
 
  def play  
-    get_names
-    decide_first_player
-    while check_for_win == false && check_for_tie == false
-      get_choice
-      if @current_player = 'x'
+    @player.get_names
+    @current_player = @player.decide_first_player
+    while check_for_win(@board.arr) == false && check_for_tie(@board.arr) == false
+      @player.get_choice
+      if @current_player == 'x'
        add_x_board(choice)
       else
         add_y_board(choice)
       end
-      switch_player
+      @player.switch_player
     end
-    if check_for_win == true
+    if check_for_win(@board.arr) == true
     "#{@current_player}, you won! Play again?"
     end
-    if check_for_tie == true
+    if check_for_tie(@board.arr) == true
       puts "This game is a tie. Play again?"
     end
     response = $stdin.gets.chomp.downcase
