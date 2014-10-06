@@ -11,13 +11,17 @@ class Game
     @board = Board.new
   end
 
+  def get_choice
+    @board.print_board
+    puts "Please choose the spot on the board you would like to take "
+    @choice = $stdin.gets.chomp.to_i
+  end
   
-
-  def current_player # ???
+  def current_player 
     @current_player = current_player
   end
  
-  def current_player=(new_name) # ????
+  def current_player=(new_name) 
     @current_player = new_name
   end
   
@@ -40,7 +44,7 @@ class Game
   def get_columns(board)
     rows = get_rows(board)
     columns = Array.new
-    columns << rows.map { |i| i[rows.length-1] }  #need to make this DRY
+    columns << rows.map { |i| i[rows.length-1] } 
     columns << rows.map { |i| i[rows.length-2] }
     columns << rows.map { |i| i[rows.length-3] }
   end
@@ -90,11 +94,11 @@ class Game
     @player.get_names
     @current_player = @player.decide_first_player
     while check_for_win(@board.arr) == false && check_for_tie(@board.arr) == false
-      @player.get_choice
+      get_choice
       if @current_player == 'x'
-       add_x_board(choice)
+        @board.add_x_board(@choice)
       else
-        add_y_board(choice)
+        @board.add_o_board(@choice)
       end
       @player.switch_player
     end

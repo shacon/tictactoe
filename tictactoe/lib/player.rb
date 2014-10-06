@@ -15,7 +15,7 @@ class Player
 
   
   def get_choice
-    print_board
+    @board.print_board
     puts "Please choose the spot on the board you would like to take "
     @choice = $stdin.gets.chomp.to_i
   end
