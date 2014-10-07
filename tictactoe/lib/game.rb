@@ -98,14 +98,15 @@ class Game
   def decide_winner(board)
     if  check_for_row_win(board) == true
       winner = get_rows(board).select { |item| check_array_equal(item) == true }[0][0]
-      @current_player = winner
+      winner
       return @current_player
     elsif check_for_column_win(board) == true
       winner = get_columns(board).select { |item| check_array_equal(item) == true }[0][0]
-      @current_player = winner
+      winner
       return @current_player	
     elsif check_for_diag_win(board) == true
       winner = get_diags(board).select { |item| check_array_equal(item) == true }[0][0]
+      winner
     else    
     return false
     end
@@ -123,16 +124,17 @@ class Game
     get_names
     decide_first_player
     while check_for_win(@board.arr) == false && check_for_tie(@board.arr) == false
-      get_choice
+      choice = get_choice
       if @current_player == @xplayer
-        @board.add_x_board(@choice)
+        @board.add_x_board(choice)
       else
-        @board.add_o_board(@choice)
+        @board.add_o_board(choice)
       end
       switch_player
     end
-    if check_for_win(@board.arr) == true
-    "#{@current_player}, you won! Play again?"
+    if check_for_win(@board.arr.to_a) == true
+      token = decide_winner(@board)
+    "#{token}, you won! Play again?"
     end
     if check_for_tie(@board.arr) == true
       puts "This game is a tie. Play again?"
