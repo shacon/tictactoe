@@ -19,13 +19,14 @@ class Board
     puts "   |   |   "   
   end
 
+
   def add_x_board(choice)
-    @arr[(@choice.to_i - 1)] = 'X'
+    @arr[(choice - 1)] = 'X'
     return @arr    
   end
  
   def add_o_board(choice)
-    @arr[(@choice.to_i - 1)] = 'O'
+    @arr[(choice - 1)] = 'O'
     return @arr
   end
 

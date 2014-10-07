@@ -6,23 +6,44 @@ require_relative 'board'
 
 class Game 
 
+ 
+  def get_names
+    puts "Who would like to be X? (name)" 
+    xplayer_name = $stdin.gets.chomp   # needs to be instance variable
+    puts "Who would like to be O? (name)"
+    oplayer_name = $stdin.gets.chomp
+
+    @xplayer = Player.new(xplayer_name)
+    @oplayer = Player.new(oplayer_name)
+  end
+
   def initialize
-    @player = Player.new
+
     @board = Board.new
+  end
+
+ 
+  def decide_first_player 
+    #chooses xplayer or yplayer to go first
+    var = rand(2)
+    if var == 1
+      puts "#{@xplayer.name}, you go first" 
+      @current_player = @xplayer
+    else
+
+      puts "#{@oplayer.name}, you go first"
+      @current_player = @oplayer
+    end
   end
 
   def get_choice
     @board.print_board
-    puts "Please choose the spot on the board you would like to take "
+    puts " #{@current_player.name}, choose the spot on the board you would like to take "
     @choice = $stdin.gets.chomp.to_i
   end
   
   def current_player 
     @current_player = current_player
-  end
- 
-  def current_player=(new_name) 
-    @current_player = new_name
   end
   
   def get_rows(board)
@@ -90,17 +111,25 @@ class Game
     end
   end
 
+ def switch_player
+    if @current_player == @xplayer
+      @current_player = @oplayer
+    else
+      @current_player = @xplayer
+    end
+  end
+
  def play  
-    @player.get_names
-    @current_player = @player.decide_first_player
+    get_names
+    decide_first_player
     while check_for_win(@board.arr) == false && check_for_tie(@board.arr) == false
       get_choice
-      if @current_player == 'x'
+      if @current_player == @xplayer
         @board.add_x_board(@choice)
       else
         @board.add_o_board(@choice)
       end
-      @player.switch_player
+      switch_player
     end
     if check_for_win(@board.arr) == true
     "#{@current_player}, you won! Play again?"
@@ -109,7 +138,7 @@ class Game
       puts "This game is a tie. Play again?"
     end
     response = $stdin.gets.chomp.downcase
-    if response.starts_with?('y')
+    if response.start_with?('y')
       play
     else
       puts "Goodbye"
