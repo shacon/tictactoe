@@ -7,25 +7,25 @@ class Board
   
   def print_board 
     puts "   |   |   "
-    puts " #{@arr[0]} | #{@arr[1]} | #{@arr[2]} "
+    puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
     puts "   |   |   "
     puts "-----------"
     puts "   |   |   "
-    puts " #{@arr[3]} | #{@arr[4]} | #{@arr[5]} "
+    puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
     puts "   |   |   " 
     puts "-----------"
     puts "   |   |   "
-    puts " #{@arr[6]} | #{@arr[7]} | #{@arr[8]} "
+    puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
     puts "   |   |   "   
   end
 
 
   def add_x_board(choice)
-    @arr[(choice - 1)] = 'X'    
+    @board[(choice - 1)] = 'X'    
   end
  
   def add_o_board(choice)
-    @arr[(choice - 1)] = 'O'
+    @board[(choice - 1)] = 'O'
 
   end
 
@@ -42,20 +42,20 @@ def check_array_equal(arr)
   end
   
   def check_for_row_win   
-    @board.get_rows.any? { |row| check_array_equal(row) }
+    get_rows.any? { |row| check_array_equal(row) }
   end
    
   def get_columns
-    rows = @board.get_rows
+    rows = get_rows
     columns = Array.new
     columns << rows.map { |i| i[rows.length-1] } 
     columns << rows.map { |i| i[rows.length-2] }
     columns << rows.map { |i| i[rows.length-3] }
   end
 
-  def get_diags(diags)
+  def get_diags
     diag_arr = Array.new
-    rows = @board.get_rows
+    rows = get_rows
     make_diag_arr = 
     rows.each_with_index { |row, index| diag_arr << row[index] }
     rows.reverse.each_with_index { |row, index| diag_arr << row[index] }
@@ -70,8 +70,8 @@ def check_array_equal(arr)
     get_diags.any? { |diag| check_array_equal(diag) }
   end  
 
-  def check_for_tie(board)
-    if check_for_win(board) == false and board.all? { |place| place.class == String }
+  def check_for_tie
+    if check_for_win == false and @board.all? { |place| place.class == String }
       true
     else
       false
