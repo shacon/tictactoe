@@ -19,14 +19,14 @@ class Board
     puts "   |   |   "   
   end
 
-
   def add_x_board(choice)
-    @board[(choice - 1)] = 'X'    
+    @board[(choice - 1)] = 'X'
+    return @board  #need to change this to allow multiple entries so you can pass 1 or many numbers and the board will be changed at those points  
   end
  
   def add_o_board(choice)
     @board[(choice - 1)] = 'O'
-
+    return @board
   end
 
   def get_rows
@@ -82,14 +82,14 @@ class Board
 
  def decide_winner
     if  check_for_row_win == true
-      winner = get_rows.select { |item| check_array_equal(item) == true }[0][0]
-      return winnner
+       get_rows.select { |item| check_array_equal(item) == true }[0][0]
+     
     elsif check_for_column_win == true
-      winner = get_columns.select { |item| check_array_equal(item) == true }[0][0]
-      return winner
+       get_columns.select { |item| check_array_equal(item) == true }[0][0]
+      
     elsif check_for_diag_win == true
-      winner = get_diags.select { |item| check_array_equal(item) == true }[0][0]
-      return winner
+       get_diags.select { |item| check_array_equal(item) == true }[0][0]
+      
     else    
     return false
     end
