@@ -3,9 +3,7 @@ require_relative 'player'
 require_relative 'board'
 
 
-
 class Game 
-
  
   def get_names
     puts "Who would like to be X? (name)" 
@@ -18,11 +16,9 @@ class Game
   end
 
   def initialize
-    
     @board = Board.new
   end
 
- 
   def decide_first_player 
     #chooses xplayer or yplayer to go first
     var = rand(2)
@@ -30,7 +26,6 @@ class Game
       puts "#{@xplayer.name}, you go first" 
       @current_player = @xplayer
     else
-
       puts "#{@oplayer.name}, you go first"
       @current_player = @oplayer
     end
@@ -46,27 +41,6 @@ class Game
     @current_player = current_player
   end
   
-
-
-  
-  def decide_winner(board)
-    if  @board.check_for_row_win == true
-      winner = @board.get_rows.select { |item| @board.check_array_equal(item) == true }[0][0]
-
-      return winnner
-    elsif @board.check_for_column_win == true
-      winner = @board.get_columns.select { |item| @board.check_array_equal(item) == true }[0][0]
-
-      return winner
-    elsif @board.check_for_diag_win == true
-      winner = @board.get_diags.select { |item| @board.check_array_equal(item) == true }[0][0]
-
-      return winner
-    else    
-    return false
-    end
-  end
-
  def switch_player
     if @current_player == @xplayer
       @current_player = @oplayer
@@ -89,7 +63,7 @@ class Game
       switch_player
     end
     if @board.check_for_win == true
-      token = decide_winner(@board)
+      token = @board.decide_winner
      puts "#{token}, you won! Play again?"
     end
     if @board.check_for_tie == true
@@ -97,14 +71,12 @@ class Game
     end
     response = $stdin.gets.chomp.downcase
     if response.start_with?('y')
-
       play
     else
       puts "Goodbye"
     end
   end
     
-
 end
   
 

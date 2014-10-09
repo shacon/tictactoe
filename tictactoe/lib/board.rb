@@ -1,6 +1,6 @@
 
 class Board
-  attr_accessor :arr
+  
   def initialize
     @board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   end
@@ -33,7 +33,9 @@ class Board
     @board.each_slice(3).to_a
   end
 
-def check_array_equal(arr)
+
+  #checks that all elements in an array are equal, used to look for winning row, column or diagonal
+  def check_array_equal(arr)
     arr.all? { |item| item == arr[0] }
   end
 
@@ -77,15 +79,24 @@ def check_array_equal(arr)
       false
     end
   end
- 
 
-
+ def decide_winner
+    if  check_for_row_win == true
+      winner = get_rows.select { |item| check_array_equal(item) == true }[0][0]
+      return winnner
+    elsif check_for_column_win == true
+      winner = get_columns.select { |item| check_array_equal(item) == true }[0][0]
+      return winner
+    elsif check_for_diag_win == true
+      winner = get_diags.select { |item| check_array_equal(item) == true }[0][0]
+      return winner
+    else    
+    return false
+    end
   end
+ 
+end
 
-
-  # def check_for_win
-  # checks to see if a player has won
-  # if arr[0..2] == ['X', 'X', 'X']
 
 
 
