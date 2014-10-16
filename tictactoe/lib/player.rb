@@ -5,7 +5,7 @@ require_relative 'board'
 class Player
 
 
-  def initialize
+  def initialize(name)
     @name = name
   end
 

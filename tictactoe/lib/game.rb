@@ -2,8 +2,14 @@
 require_relative 'player'
 require_relative 'board'
 
-
 class Game 
+
+  attr_accessor :xplayer, :current_player 
+
+  def initialize(board)
+    @board = board
+ 
+  end 
  
   def get_names
     puts "Who would like to be X? (name)" 
@@ -13,10 +19,6 @@ class Game
 
     @xplayer = Player.new(xplayer_name)
     @oplayer = Player.new(oplayer_name)
-  end
-
-  def initialize
-    @board = Board.new
   end
 
   def decide_first_player 
@@ -30,15 +32,14 @@ class Game
       @current_player = @oplayer
     end
   end
-
-  def get_choice
-    @board.print_board
-    puts " #{@current_player.name}, choose the spot on the board you would like to take "
-    @choice = $stdin.gets.chomp.to_i
-  end
-  
+ 
   def current_player 
     @current_player = current_player
+  end
+
+  def get_choice
+    puts " #{@current_player.name}, choose the spot on the board you would like to take "
+    @choice = $stdin.gets.chomp.to_i
   end
   
  def switch_player
@@ -49,17 +50,22 @@ class Game
     end
   end
 
+  def place_move(choice) 
+   if @current_player == @xplayer
+        @board.add_x_board(choice)
+      else
+        @board.add_o_board(choice)
+      end
+  end
+
  def play  
     get_names
     decide_first_player
     @board = Board.new
     while @board.check_for_win == false && @board.check_for_tie == false
+      @board.print_board
       choice = get_choice
-      if @current_player == @xplayer
-        @board.add_x_board(choice)
-      else
-        @board.add_o_board(choice)
-      end
+      place_move(choice)
       switch_player
     end
     if @board.check_for_win == true

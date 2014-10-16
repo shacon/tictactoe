@@ -6,32 +6,56 @@ describe 'Board class' do
     @board = Board.new
   end
 
+  
+#  it 'prints the board' do
+#   @board.print_board.to_s.should == 
+#   "   |   |    
+#     1 | 2 | 3 
+#       |   |   
+#    -----------
+#       |   |   
+#     4 | 5 | 6 
+#       |   |    
+#    -----------
+#       |   |   
+#     7 | 8 | 9 
+#       |   |   "
+#
+#  end
+
   it 'gets rows' do
-  expect(@board.get_rows).to eq([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    expect(@board.get_rows).to eq([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
   end
 
+  it 'gets columns' do
+    expect(@board.get_columns).to eq([[3, 6, 9], [2, 5, 8], [1, 4, 7]])
+  end 
+
+  it 'gets diags' do 
+    expect(@board.get_diags).to eq([[1, 5, 9], [7, 5, 3]])
+  end
 
   it 'changes the array at index to X' do
-  @board.add_x_board(1).should == ['X', 2, 3, 4, 5, 6, 7, 8, 9] 
+    @board.add_x_board(1).should == ['X', 2, 3, 4, 5, 6, 7, 8, 9] 
   end
 
   it 'changes the array at index to 0' do
-  expect(@board.add_o_board(1)).to eq(['O', 2, 3, 4, 5, 6, 7, 8, 9])
+    expect(@board.add_o_board(1)).to eq(['O', 2, 3, 4, 5, 6, 7, 8, 9])
   end
 
   it 'changes the array at index to x' do 
-  @board.add_o_board(7).should == [ 1, 2, 3, 4, 5, 6, 'O', 8, 9 ]
+    @board.add_o_board(7).should == [ 1, 2, 3, 4, 5, 6, 'O', 8, 9 ]
   end
 
   it 'checks to see whether all items in an array are identical' do
-  expect(@board.check_array_equal(['X', 'X', 'X'])).to eq(true)
+    expect(@board.check_array_equal(['X', 'X', 'X'])).to eq(true)
   end
 
   it 'checks for a win' do
-  @board.add_o_board(1)
-  @board.add_o_board(4)
-  @board.add_o_board(7)
-  expect(@board.check_for_win).to eq(true)
+    @board.add_o_board(1)
+    @board.add_o_board(4)
+    @board.add_o_board(7)
+    expect(@board.check_for_win).to eq(true)
   end
 
   it 'checks for a winner by row' do
@@ -139,8 +163,7 @@ describe 'Board class' do
     @board.decide_winner.should == 'O'
     end
  
-
- 
+  
 end
 
 

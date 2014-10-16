@@ -6,17 +6,21 @@ class Board
   end
   
   def print_board 
-    puts "   |   |   "
-    puts " #{@board[0]} | #{@board[1]} | #{@board[2]} "
-    puts "   |   |   "
-    puts "-----------"
-    puts "   |   |   "
-    puts " #{@board[3]} | #{@board[4]} | #{@board[5]} "
-    puts "   |   |   " 
-    puts "-----------"
-    puts "   |   |   "
-    puts " #{@board[6]} | #{@board[7]} | #{@board[8]} "
-    puts "   |   |   "   
+    board_string = <<-EOS
+       |   |   
+     #{@board[0]} | #{@board[1]} | #{@board[2]} 
+       |   |   
+    -----------
+       |   |   
+     #{@board[3]} | #{@board[4]} | #{@board[5]} 
+       |   |    
+    -----------
+       |   |   
+     #{@board[6]} | #{@board[7]} | #{@board[8]} 
+       |   |   
+       EOS
+
+    puts board_string
   end
 
   def add_x_board(choice)
