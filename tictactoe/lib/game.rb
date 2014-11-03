@@ -1,22 +1,23 @@
 
 require_relative 'player'
 require_relative 'board'
-
+require_relative 'output'
+require_relative 'input'
 class Game 
 
-  attr_accessor :xplayer, :current_player 
+  attr_accessor :xplayer, :oplayer, :current_player, :choice, :input, :output
 
-  def initialize(board)
+  def initialize(board, input, output)
     @board = board
- 
+    @input = Input.new(input)
+    @output = Output.new(output)
   end 
  
-  def get_names
-    puts "Who would like to be X? (name)" 
-    xplayer_name = $stdin.gets.chomp   # needs to be instance variable
-    puts "Who would like to be O? (name)"
-    oplayer_name = $stdin.gets.chomp
-
+  def get_names(input)
+    @output.puts("Who would like to be X? (name)") #Go over this code, rewrite it so tests can be written with doubles, etcs
+    xplayer_name = @input.gets.chomp   # needs to be instance variable
+    @output.puts "Who would like to be O? (name)"
+    oplayer_name = @input.gets.chomp
     @xplayer = Player.new(xplayer_name)
     @oplayer = Player.new(oplayer_name)
   end
@@ -25,10 +26,10 @@ class Game
     #chooses xplayer or yplayer to go first
     var = rand(2)
     if var == 1
-      puts "#{@xplayer.name}, you go first" 
+      @output.puts "#{@xplayer.name}, you go first" 
       @current_player = @xplayer
     else
-      puts "#{@oplayer.name}, you go first"
+      @output.puts "#{@oplayer.name}, you go first"
       @current_player = @oplayer
     end
   end
@@ -37,9 +38,12 @@ class Game
     @current_player = current_player
   end
 
+  def ask_choice
+    @output.puts " #{@current_player.name}, choose the spot on the board you would like to take "
+  end
+
   def get_choice
-    puts " #{@current_player.name}, choose the spot on the board you would like to take "
-    @choice = $stdin.gets.chomp.to_i
+    @choice = @input.gets.chomp.to_i
   end
   
  def switch_player
@@ -64,22 +68,23 @@ class Game
     @board = Board.new
     while @board.check_for_win == false && @board.check_for_tie == false
       @board.print_board
+      ask_choice
       choice = get_choice
       place_move(choice)
       switch_player
     end
     if @board.check_for_win == true
       token = @board.decide_winner
-     puts "#{token}, you won! Play again?"
+     @output.puts "#{token}, you won! Play again?"
     end
     if @board.check_for_tie == true
-      puts "This game is a tie. Play again?"
+      @output.puts "This game is a tie. Play again?"
     end
-    response = $stdin.gets.chomp.downcase
+    response = @input.gets.chomp.downcase
     if response.start_with?('y')
       play
     else
-      puts "Goodbye"
+      @output.puts "Goodbye"
     end
   end
     
