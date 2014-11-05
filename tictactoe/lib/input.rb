@@ -1,11 +1,8 @@
 class Input
 
-	def initialize(input)
-		@input = input
-	end
-
-	def gets(input)
-	  return input
+	
+	def gets
+	  $stdin.gets
 	end
 
 end

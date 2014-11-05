@@ -9,11 +9,11 @@ class Game
 
   def initialize(board, input, output)
     @board = board
-    @input = Input.new(input)
-    @output = Output.new(output)
+    @input = input
+    @output = output
   end 
  
-  def get_names(input)
+  def get_names
     @output.puts("Who would like to be X? (name)") #Go over this code, rewrite it so tests can be written with doubles, etcs
     xplayer_name = @input.gets.chomp   # needs to be instance variable
     @output.puts "Who would like to be O? (name)"
